@@ -1,16 +1,15 @@
 'use strict';
 
 import Koa from 'koa';
-import Router from 'koa-router';
-import marked from 'marked';
 import 'babel-polyfill';
 import Octokat from 'octokat';
+import Router from 'koa-router';
+import marked from 'marked';
 
-let app = Koa();
-let router = Router();
-let octo = new Octokat();
-let repo = octo.repos('japacible', 'Hackathon-Calendar');
-
+const app = Koa();
+const router = Router();
+const octo = new Octokat();
+const repo = octo.repos('japacible', 'Hackathon-Calendar');
 const port = (process.env.PORT || 5000);
 
 app
@@ -24,7 +23,6 @@ function getHackathonsFrom(markdown) {
     if (tokens[key]['type'] === 'table') {
       let year = tokens[key]['header'][tokens[key]['header'].length - 1];
       hackathons.push.apply(hackathons, tokens[key]['cells']);
-
       for (let hackathon of hackathons) {
         hackathon.push(year);
       }
