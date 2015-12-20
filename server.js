@@ -33,7 +33,10 @@ function getHackathonsFrom(markdown) {
 
 router
   .get('/', function *(next) {
-    let message = `Endpoints:
+    let message = `An API list of hackathons from
+    https://github.com/japacible/Hackathon-Calendar
+
+Endpoints:
 
 - [/upcoming](/upcoming) | get a list of upcoming hackathons
 
