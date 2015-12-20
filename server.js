@@ -35,10 +35,14 @@ function getHackathonsFrom(markdown) {
 
 router
   .get('/', function *(next) {
-    this.body = `Endpoints:
-/upcoming | get a list of upcoming hackathons
-/past | get a list of past hackathons
-/ping | Pong`;
+    let message = `Endpoints:
+
+- [/upcoming](/upcoming) | get a list of upcoming hackathons
+
+- [/past](/past) | get a list of past hackathons
+
+- [/ping](/ping) | Pong`;
+    this.body = marked(message);
   })
   .get('/ping', function *(next) {
     this.body = 'PONG';
