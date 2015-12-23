@@ -28,7 +28,18 @@ function getHackathonsFrom(markdown) {
       }
     }
   }
-  return hackathons;
+  return hackathons.map((hackathon) => {
+    let name = hackathon[0].match(/\[([^\)]+)\]/i)[1];
+    let url = hackathon[0].match(/\(([^\)]+)\)/i)[1];
+    let location = hackathon[1];
+    let date = `${hackathon[2]}, ${hackathon[3].match(/\(([^\)]+)\)/i)[1]}`;
+    return {
+      "name": name,
+      "url": url,
+      "location": location,
+      "date": date
+    };
+  });
 }
 
 router
@@ -48,13 +59,13 @@ Endpoints:
   .get('/ping', function *(next) {
     this.body = 'PONG';
   })
-  .get('/upcoming',function *(next) {
+  .get('/upcoming', function *(next) {
     this.body = yield repo.contents('README.md').read()
       .then((contents) => {
         return getHackathonsFrom(contents);
       });
   })
-  .get('/past',function *(next) {
+  .get('/past', function *(next) {
     this.body = yield repo.contents('Past-Hackathons.md').read()
       .then((contents) => {
         return getHackathonsFrom(contents);
