@@ -5,12 +5,14 @@ import 'babel-polyfill';
 import Octokat from 'octokat';
 import Router from 'koa-router';
 import marked from 'marked';
+import git from 'git-rev-sync';
 
 const app = Koa();
 const router = Router();
 const octo = new Octokat();
 const repo = octo.repos('japacible', 'Hackathon-Calendar');
 const port = (process.env.PORT || 5000);
+const version = git.long();
 
 app
   .use(router.routes())
@@ -46,6 +48,8 @@ router
   .get('/', function *(next) {
     let message = `An API list of hackathons from
     https://github.com/japacible/Hackathon-Calendar
+
+Version: ${version}
 
 Endpoints:
 
