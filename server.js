@@ -32,12 +32,17 @@ function getHackathonsFrom(markdown) {
     let name = hackathon[0].match(/\[([^\)]+)\]/i)[1];
     let url = hackathon[0].match(/\(([^\)]+)\)/i)[1];
     let location = hackathon[1];
-    let date = `${hackathon[2]}, ${hackathon[3].match(/\(([^\)]+)\)/i)[1]}`;
+    let date = hackathon[2];
+    let year = hackathon[3].match(/\(([^\)]+)\)/i)[1];
+    let dates = date.split('-');
+    let startDate = new Date(`${dates[0]} ${year}`).toISOString();
+    let endDate = new Date(`${dates[dates.length - 1]} ${year}`).toISOString();
     return {
       "name": name,
       "url": url,
       "location": location,
-      "date": date
+      "startDate": startDate,
+      "endDate": endDate
     };
   });
 }
