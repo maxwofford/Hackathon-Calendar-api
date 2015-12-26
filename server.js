@@ -16,6 +16,10 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
+function formatDate(date) {
+  return new Date(date).toISOString().substr(0, 10);
+}
+
 function getHackathonsFrom(markdown) {
   let tokens = marked.lexer(markdown);
   let hackathons = [];
@@ -35,8 +39,8 @@ function getHackathonsFrom(markdown) {
     let date = hackathon[2];
     let year = hackathon[3].match(/\(([^\)]+)\)/i)[1];
     let dates = date.split('-');
-    let startDate = new Date(`${dates[0]} ${year}`).toISOString();
-    let endDate = new Date(`${dates[dates.length - 1]} ${year}`).toISOString();
+    let startDate = formatDate(`${dates[0]} ${year}`);
+    let endDate = formatDate(`${dates[dates.length - 1]} ${year}`);
     return {
       "name": name,
       "url": url,
